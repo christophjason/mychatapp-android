@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1089376310087",
+    "firebase_url": "https://firstchatapp-918d1.firebaseio.com",
+    "project_id": "firstchatapp-918d1",
+    "storage_bucket": "firstchatapp-918d1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089376310087:android:62391da1218675c9",
+        "android_client_info": {
+          "package_name": "myapp.training.jason.com.firstchatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089376310087-qjdcujg8igb6quc706p2kicq7pdgs45i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "myapp.training.jason.com.firstchatapp",
+            "certificate_hash": "80d1587eb65b3daabaad4b29ba949ec33434c7d1"
+          }
+        },
+        {
+          "client_id": "1089376310087-rcif9da73s58ro1t13vhsebqnlr3kufh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCdH573XDJllxcrWPShdjseJDUTtRSQx0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089376310087-rcif9da73s58ro1t13vhsebqnlr3kufh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089376310087:android:481ebcba158868ba",
+        "android_client_info": {
+          "package_name": "myapp.training.jason.com.firstchatappjason"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089376310087-mcuq5t9d95dhv26ukjs01rd5mqr8ht8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "myapp.training.jason.com.firstchatappjason",
+            "certificate_hash": "80d1587eb65b3daabaad4b29ba949ec33434c7d1"
+          }
+        },
+        {
+          "client_id": "1089376310087-rcif9da73s58ro1t13vhsebqnlr3kufh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCdH573XDJllxcrWPShdjseJDUTtRSQx0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089376310087-rcif9da73s58ro1t13vhsebqnlr3kufh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
