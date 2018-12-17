@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -71,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+
     private void loginUser(String login_email, String login_password) {
         mAuth.signInWithEmailAndPassword(login_email, login_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -81,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     mLogProgress.dismiss();
 
                     Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(mainIntent);
                     finish();
 

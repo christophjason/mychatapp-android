@@ -10,4 +10,8 @@
     <string name="create_a_new_account">Create A New Account</string>
     <string name="login_btn">Login</string>
     <string name="email">Email</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_status">Hi there! I\'m using My Chat App</string>
 </resources>
