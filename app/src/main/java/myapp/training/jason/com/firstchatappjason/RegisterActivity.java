@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.w3c.dom.Text;
 
@@ -95,9 +96,13 @@ public class RegisterActivity extends AppCompatActivity {
                             FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
                             String uid = current_user.getUid();
 
+                            //Get token id of device
+                            String deviceToken = FirebaseInstanceId.getInstance().getToken();
+
                             mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
                             HashMap<String, String> userMap = new HashMap<>();
+                            userMap.put("device_token", deviceToken);
                             userMap.put("name",display_name);
                             userMap.put("status", "Hi there! I'm using My Chat App.");
                             userMap.put("image", "default");

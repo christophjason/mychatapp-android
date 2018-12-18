@@ -2,6 +2,7 @@ package myapp.training.jason.com.firstchatappjason;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -26,14 +27,22 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -63,7 +72,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         String status_value = getIntent().getStringExtra("status_value");
         String name_value = getIntent().getStringExtra("name_value");
-        String image_value = getIntent().getStringExtra("image_value");
         mDisplayImage = (CircleImageView) findViewById(R.id.settings_image);
         mName = (TextView) findViewById(R.id.settings_display_name);
         mStatus = (TextView) findViewById(R.id.settings_status);
@@ -73,26 +81,48 @@ public class SettingsActivity extends AppCompatActivity {
 
         mName.setText(name_value);
         mStatus.setText(status_value);
-        Picasso.get().load(image_value).into(mDisplayImage);
 
         mImageStorage = FirebaseStorage.getInstance().getReference();
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
+
+
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
+        mUserDatabase.keepSynced(true);
 
             mUserDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     String name = dataSnapshot.child("name").getValue().toString();
-                    String image = dataSnapshot.child("image").getValue().toString();
+                    final String image = dataSnapshot.child("image").getValue().toString();
                     String status = dataSnapshot.child("status").getValue().toString();
                     String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
                     mName.setText(name);
                     mStatus.setText(status);
-                    Picasso.get().load(image).into(mDisplayImage);
+
+                    if(!image.equals("default")){
+                        //Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mDisplayImage);
+
+                        Picasso.get().load(image)
+                                .networkPolicy(NetworkPolicy.OFFLINE)
+                                .placeholder(R.drawable.default_avatar)
+                                .into(mDisplayImage, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+
+                                        Picasso.get().load(image).placeholder(R.drawable.default_avatar).into(mDisplayImage);
+
+                                    }
+                                });
+                    }
 
 
                 }
@@ -164,10 +194,35 @@ public class SettingsActivity extends AppCompatActivity {
                 mProgressDialog.show();
 
                 mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-                final String current_uid = mCurrentUser.getUid();
+
                 Uri resultUri = result.getUri();
 
+                File thumb_filePath = new File(resultUri.getPath());
+
+                final String current_uid = mCurrentUser.getUid();
+
+
+                Bitmap thumb_bitmap = null;
+                try {
+                    thumb_bitmap = new Compressor(this)
+                            .setMaxWidth(200)
+                            .setMaxHeight(200)
+                            .setQuality(60)
+                            .compressToBitmap(thumb_filePath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                final byte[] thumb_byte = baos.toByteArray();
+
+
                 StorageReference filepath = mImageStorage.child("profile_images").child(current_uid + ".jpg");
+                final StorageReference thumb_filepath = mImageStorage.child("profile_images").child("thumbs").child(current_uid + ".jpg");
+
+
+
                 filepath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -177,18 +232,46 @@ public class SettingsActivity extends AppCompatActivity {
                             mImageStorage.child("profile_images").child(current_uid + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    String downloadUrl = uri.toString();
-                                    mUserDatabase.child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    final String downloadUrl = uri.toString();
+
+                                    UploadTask uploadTask = thumb_filepath.putBytes(thumb_byte);
+                                    uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                        public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> thumb_task) {
 
-                                            if(task.isSuccessful()){
+                                            mImageStorage.child("profile_images").child("thumbs").child(current_uid + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    String thumb_downloadUrl = uri.toString();
 
-                                                mProgressDialog.dismiss();
-                                                Toast.makeText(SettingsActivity.this, "Successfully Uploaded", Toast.LENGTH_LONG).show();
+                                                    if(thumb_task.isSuccessful()){
 
-                                            }
+                                                        Map update_hashMap = new HashMap<>();
+                                                        update_hashMap.put("image", downloadUrl);
+                                                        update_hashMap.put("thumb_image", thumb_downloadUrl);
 
+                                                        mUserDatabase.updateChildren(update_hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                                                if(task.isSuccessful()){
+
+                                                                    mProgressDialog.dismiss();
+                                                                    Toast.makeText(SettingsActivity.this, "Successfully Uploaded", Toast.LENGTH_LONG).show();
+
+                                                                }
+
+                                                            }
+                                                        });
+
+                                                    } else {
+
+                                                        Toast.makeText(SettingsActivity.this, "Error in uploading thumbnail", Toast.LENGTH_LONG).show();
+                                                        mProgressDialog.dismiss();
+
+                                                    }
+                                                }
+                                            });
                                         }
                                     });
 

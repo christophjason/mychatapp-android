@@ -47,30 +47,32 @@ public class MainActivity extends AppCompatActivity {
         //Firebase
         mAuth = FirebaseAuth.getInstance();
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String current_uid = mCurrentUser.getUid();
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
+        if(mCurrentUser != null){
+            String current_uid = mCurrentUser.getUid();
+            mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
 
-        mUserDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            mUserDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String name = dataSnapshot.child("name").getValue().toString();
-                String image = dataSnapshot.child("image").getValue().toString();
-                String status = dataSnapshot.child("status").getValue().toString();
-                String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
+                    String name = dataSnapshot.child("name").getValue().toString();
+                    String image = dataSnapshot.child("image").getValue().toString();
+                    String status = dataSnapshot.child("status").getValue().toString();
+                    String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
-                mNameValue = name;
-                mStatusValue = status;
-                mImageValue = image;
-            }
+                    mNameValue = name;
+                    mStatusValue = status;
+                    mImageValue = image;
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
 
 
-            }
-        });
+                }
+            });
+        }
 
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -128,11 +130,9 @@ public class MainActivity extends AppCompatActivity {
 
             String name_value = mNameValue;
             String status_value = mStatusValue;
-            String image_value = mImageValue;
             Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
             settingsIntent.putExtra("name_value", name_value);
             settingsIntent.putExtra("status_value", status_value);
-            settingsIntent.putExtra("image_value", image_value);
             startActivity(settingsIntent);
 
         }
