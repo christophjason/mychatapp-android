@@ -23,3 +23,4 @@ public class MyChat  extends Application {
         Picasso.setSingletonInstance(built);
     }
 }
+
