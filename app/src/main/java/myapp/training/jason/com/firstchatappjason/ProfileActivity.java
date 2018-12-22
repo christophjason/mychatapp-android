@@ -275,7 +275,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                             if(databaseError == null){
 
-                                mProfileSendReqBtn.setEnabled(true);
                                 mCurrent_state = 0; //Not Friends
                                 mProfileSendReqBtn.setText("Send Friend Request");
 
@@ -283,6 +282,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 String error = databaseError.getMessage();
                                 Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
                             }
+
+                            mProfileSendReqBtn.setEnabled(true);
 
                         }
                     });
@@ -307,7 +308,7 @@ public class ProfileActivity extends AppCompatActivity {
                         if(databaseError == null){
 
                             mProfileSendReqBtn.setEnabled(true);
-                            mCurrent_state = 0;
+                            mCurrent_state = 0; //Not Friends
                             mProfileSendReqBtn.setText("Send Friend Request");
 
                             mDeclineBtn.setVisibility(View.INVISIBLE);
