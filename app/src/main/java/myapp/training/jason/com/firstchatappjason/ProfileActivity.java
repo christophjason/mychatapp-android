@@ -252,6 +252,9 @@ public class ProfileActivity extends AppCompatActivity {
                                 mCurrent_state = 3; //Friends
                                 mProfileSendReqBtn.setText("Unfriend");
 
+                                mDeclineBtn.setVisibility(View.INVISIBLE);
+                                mDeclineBtn.setEnabled(false);
+
                             } else {
                                 String error = databaseError.getMessage();
                                 Toast.makeText(ProfileActivity.this, error, Toast.LENGTH_SHORT).show();
@@ -277,6 +280,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 mCurrent_state = 0; //Not Friends
                                 mProfileSendReqBtn.setText("Send Friend Request");
+
 
                             } else {
                                 String error = databaseError.getMessage();

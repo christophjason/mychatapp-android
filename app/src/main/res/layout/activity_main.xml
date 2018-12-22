@@ -31,8 +31,12 @@
         android:layout_height="464dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="103dp"></android.support.v4.view.ViewPager>
+        android:layout_marginTop="103dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"></android.support.v4.view.ViewPager>
 
 
 </RelativeLayout>
