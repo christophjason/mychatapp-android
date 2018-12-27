@@ -107,16 +107,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
-            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users")
-                    .child(mAuth.getCurrentUser().getUid());
-            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
-        }
-    }
+        /*@Override
+        protected void onStop() {
+            super.onStop();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null) {
+                mUserRef = FirebaseDatabase.getInstance().getReference().child("Users")
+                        .child(mAuth.getCurrentUser().getUid());
+                mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+            }
+        }*/
 
     private void sendToStart() {
         Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.main_logout_btn){
 
             FirebaseAuth.getInstance().signOut();
+            mUserDatabase.child("online").setValue(ServerValue.TIMESTAMP);
             sendToStart();
 
         }

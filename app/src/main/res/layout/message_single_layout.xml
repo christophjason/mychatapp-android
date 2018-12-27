@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/message_single_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/message_profile_layout"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/default_avatar" />
+
+    <TextView
+        android:id="@+id/message_text_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/message_text_background"
+        android:padding="15dp"
+        android:text="Message Text"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/message_name_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/message_profile_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="69dp"
+        android:text="Display Name" />
+
+    <TextView
+        android:id="@+id/message_time_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/message_name_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="164dp"
+        android:layout_marginBottom="2dp"
+        android:text="00:00"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/message_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/message_name_layout"
+        android:layout_alignBottom="@+id/message_text_layout"
+        android:scaleType="centerCrop" />
+
+</RelativeLayout>

@@ -4,6 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageButton
+        android:id="@+id/friendreq_accept_btn"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="3dp"
+        android:layout_toStartOf="@+id/friendreq_decline_btn"
+        android:backgroundTint="@android:color/holo_green_light"
+        app:srcCompat="@drawable/check" />
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/friendreq_single_image"
         android:layout_width="64dp"
@@ -28,7 +39,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/user_single_status"
+        android:id="@+id/friendreq_single_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friendreq_single_name"
@@ -37,17 +48,17 @@
         android:layout_marginTop="5dp"
         android:text="User Status" />
 
-    <ImageView
-        android:id="@+id/user_single_online_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/friendreq_single_name"
+    <ImageButton
+        android:id="@+id/friendreq_decline_btn"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
         android:layout_alignTop="@+id/friendreq_single_image"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="150dp"
-        android:visibility="invisible"
-        app:srcCompat="@android:drawable/presence_online" />
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@android:color/holo_red_light"
+        app:srcCompat="@drawable/clear" />
+
 
 </RelativeLayout>

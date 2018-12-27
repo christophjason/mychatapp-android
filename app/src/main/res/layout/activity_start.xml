@@ -9,52 +9,56 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_width="243dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="191dp"
+        android:layout_marginTop="14dp"
         android:text="Welcome to My Chat App"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/start_reg_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="241dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="-102dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@color/colorAccent"
         android:paddingStart="0dp"
         android:paddingTop="0dp"
         android:paddingEnd="0dp"
         android:paddingBottom="0dp"
         android:text="@string/dont_have_an_account"
+        android:textAlignment="center"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/start_log_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="241dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="78dp"
-        android:layout_marginEnd="71dp"
-        android:layout_marginBottom="68dp"
+        android:layout_above="@+id/start_reg_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/common_google_signin_btn_text_dark_default"
         android:paddingStart="0dp"
         android:paddingTop="0dp"
         android:paddingEnd="0dp"
         android:paddingBottom="0dp"
         android:text="@string/already_have_an_account"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="203dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="133dp"
+        app:srcCompat="@drawable/boy" />
+
 </RelativeLayout>

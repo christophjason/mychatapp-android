@@ -181,14 +181,14 @@ public class FriendsFragment extends Fragment {
 
         public void setName(String name) {
 
-            TextView userNameView = mView.findViewById(R.id.user_single_name);
+            TextView userNameView = mView.findViewById(R.id.friendreq_single_name);
             userNameView.setText(name);
 
         }
 
         public void setThumbImage(String thumb_image) {
 
-            CircleImageView userImage = mView.findViewById(R.id.user_single_image);
+            CircleImageView userImage = mView.findViewById(R.id.friendreq_single_image);
             Picasso.get().load(thumb_image).placeholder(R.drawable.default_avatar).into(userImage);
 
         }
